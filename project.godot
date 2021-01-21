@@ -8,20 +8,70 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Reference",
+"class": "AdaptadorVector",
+"language": "GDScript",
+"path": "res://Scripts/adaptador_vector.gd"
+}, {
+"base": "",
+"class": "Celda",
+"language": "GDScript",
+"path": "res://Scripts/celda.gd"
+}, {
+"base": "Reference",
+"class": "Edificio",
+"language": "GDScript",
+"path": "res://Partida/Edificios/edificio_clase.gd"
+}, {
+"base": "Reference",
+"class": "Faccion",
+"language": "GDScript",
+"path": "res://Partida/Facciones/faccion_clase.gd"
+}, {
+"base": "",
+"class": "Pixel",
+"language": "GDScript",
+"path": "res://Scripts/pixel.gd"
+}, {
+"base": "Reference",
+"class": "Unidad",
+"language": "GDScript",
+"path": "res://Partida/Unidades/unidad_clase.gd"
+}, {
+"base": "Node",
+"class": "ext_lista",
+"language": "GDScript",
+"path": "res://Scripts/Extensiones/listas.gd"
+} ]
 _global_script_class_icons={
-
+"AdaptadorVector": "",
+"Celda": "",
+"Edificio": "",
+"Faccion": "",
+"Pixel": "",
+"Unidad": "",
+"ext_lista": ""
 }
 
 [application]
 
 config/name="Poc Multiplayer Cliente"
-run/main_scene="res://EscenaPrincipal.tscn"
+run/main_scene="res://gamestate/Lobby.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Gamestate="*res://gamestate/gamestate.gd"
+Ronda="*res://Partida/Contexto/ronda.gd"
+Convertir="*res://Scripts/convertir.gd"
+SeleccionTropa="*res://Partida/Contexto/seleccion_tropa.gd"
+Data="*res://Scripts/data.gd"
+Listas="*res://Scripts/Extensiones/listas.gd"
+Ataque="*res://Partida/Contexto/ataque.gd"
+CreadorVista="*res://creador_vista/creador_vista.gd"
+Diccionario="*res://Scripts/Extensiones/diccionario.gd"
+ExtensionNode="*res://Scripts/Extensiones/node.gd"
 
 [rendering]
 

@@ -20,8 +20,9 @@ func _ready():
 	_ignore = get_tree().connect("connected_to_server", self, "_connected_ok")
 	_ignore = get_tree().connect("connection_failed", self, "_connected_fail")
 	_ignore = get_tree().connect("server_disconnected", self, "_server_disconnected")
-
-	connect_to_server()
+	_ignore = get_tree().connect("network_peer_connected", self, "registrar_jugador")
+	_ignore = get_tree().connect("network_peer_disconnected", self,"unregister_jugador")
+	
 
 func connect_to_server():
 	print("conectando al servidor")
@@ -54,11 +55,18 @@ func _connected_fail():
 	# Try to connect again
 	connect_to_server()
 
-puppet func register_player(id, new_player_data):
-	players[id] = new_player_data
-	emit_signal("players_updated")
+remote func registrar_jugador(id): 
+	print("Everyone sees this.. adding this id to your array! ", id) # everyone sees this
+	#the server will see this... better tell this guy who else is already in...
+	#if !(id in players):
+	players[id] = ""
+	
+	
+remote func update_player_list():
+		for x in players:
+			print(x)
 
-puppet func unregister_player(id):
+remote func unregister_jugador(id):
 	players.erase(id)
 	emit_signal("players_updated")
 
@@ -66,10 +74,12 @@ puppet func unregister_player(id):
 func get_player_list():
 	return players.values()
 
-puppet func pre_start_game():
-	pass
-	# get_node("/root/Main").hide()
-	# var world = load("res://World.tscn").instance()
-	# get_tree().get_root().add_child(world)
+func _on_Button_Conectar_pressed():
+	connect_to_server()
+
+remote func iniciar_partida(_partida):
+	var EscenaPrincipal = load("res://Orquestador/EscenaPrincipal.tscn").instance()
+	EscenaPrincipal.init(_partida)
+	get_node("/root").add_child(EscenaPrincipal)
 	
-	# rpc_id(1, "post_start_game")
+

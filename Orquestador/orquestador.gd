@@ -31,7 +31,6 @@ func _ready():
 	preparar_facciones(partida2)
 	preparar_edificios(partida2)
 
-
 func preparar_camara():
 	var limites = grilla_principal.obtener_limites()
 	var viewport_limites = get_viewport().get_size()
@@ -62,7 +61,6 @@ func agregar_unidad(unidad, faccion_nodo):
 	var posicionUnidad_Pixel : Pixel = Convertir.pixel(posicionUnidad_Vector)
 	faccion_nodo.agregar_unidad(unidad, posicionUnidad_Pixel)
 	grilla_principal.marcar_celda_como_ocupada(posicionUnidad_Pixel)
-	
 
 func preparar_edificios(_partida):
 	for faccion_data in _partida.facciones:
@@ -156,7 +154,7 @@ func crear_unidad_en_base(clase_unidad, equipamiento_defensa, equipamiento_ataqu
 	var faccion_nodo = self.get_node(Ronda.obtener_faccion_activa())
 	self.agregar_unidad(unidad, faccion_nodo)
 
-func _unhandled_input(event): #ToDo, demasiada conversiones de formato(pixel,celda) coordinar con la funcion de abajo y con celda_seleccion
+func _unhandled_input(event): #to-do, demasiada conversiones de formato(pixel,celda) coordinar con la funcion de abajo y con celda_seleccion
 	if event is InputEventMouseButton && !event.is_pressed():
 		var posicion = event.position * camara2D.zoom + camara2D.position  #toma la posicion del clickeo en pixeles
 		var click_en_pixel =Convertir.pixel(posicion)
@@ -164,8 +162,6 @@ func _unhandled_input(event): #ToDo, demasiada conversiones de formato(pixel,cel
 		celda_seleccion.mover(centro_de_celda)
 		self.click_en_pantalla(centro_de_celda, event.position)
 		get_tree().set_input_as_handled()
-
-
 
 func guardar_celda_nodo(nodo: Node2D):
 	var posicion_pixel =Convertir.pixel(nodo.position)
@@ -180,8 +176,7 @@ func obtener_nodo_en_celda(celda_vector2: Vector2) -> Node2D:
 			return nodo_id
 	return null
 
-
-func click_en_pantalla(centro_celda_clickeada : Vector2, evento_posicion):	#ToDo, demasiada conversiones de formato(pixel,celda), coordinar con la funcion de arriba
+func click_en_pantalla(centro_celda_clickeada : Vector2, evento_posicion):	#to-do, demasiada conversiones de formato(pixel,celda), coordinar con la funcion de arriba
 	var click_en_pixel =Convertir.pixel(centro_celda_clickeada)				#Todo, ver como distribuir esto en distintos componentes
 	var click_formato_celda = grilla_principal.pixeles_a_celda(click_en_pixel)
 	var nodo_en_celda = self.obtener_nodo_en_celda(click_formato_celda.vector)
@@ -223,6 +218,9 @@ func borrar():
 	# --------------------------------------------------
 	# ---------------- Orquestador 2.0 -----------------
 	# --------------------------------------------------
+
+func _on_click_unidad(accion):
+	Gamestate.enviar_al_servidor(accion)
 
 func _on_click_atacar(accion):
 	Gamestate.enviar_al_servidor(accion)

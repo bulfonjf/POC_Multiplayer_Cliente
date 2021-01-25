@@ -1,11 +1,11 @@
 extends Node
 var faccion_clase = load("res://Partida/Facciones/faccion_clase.gd")
-var faccion : Faccion
+#var faccion : Faccion
 
 signal guardar_celda_signal(unidad)
 
 func _init(partida_data):
-	self.faccion = faccion_clase.new(partida_data)
+#	self.faccion = faccion_clase.new(partida_data)
 
 func agregar_unidad(unidad, posicion : Pixel):
 	var nueva_unidad = load("res://Partida/Unidades/Unidad.tscn").instance()

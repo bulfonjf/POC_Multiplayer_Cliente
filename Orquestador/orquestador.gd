@@ -19,6 +19,7 @@ onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
 onready var celdas_con_nodos = {}
 #SEÑALES
 var partida2 
+var faccion
 # READY
 
 func init(_partida):
